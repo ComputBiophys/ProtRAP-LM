@@ -1,7 +1,7 @@
 # ProtRAP-LM: Protein Relative Accessibility Prediction through protein Language Model embeddings
 ## Introduction
 
-We present a novel transformer-based model, ProtRAP-LM, utilizing language model embeddings as input features, to quickly and accurately predict MCP and relative accessibility for each residue of a given protein sequence.
+We present a novel transformer-based model, ProtRAP-LM, utilizing language model embeddings as input features, to quickly and accurately predict membrane contact probability and relative accessibility for each residue of a given protein sequence.
 
 This package provides an implementation of the membrane contact probability (MCP), relative accessible surface area (RASA), relative lipid accessibility (RLA), relative solvent accessibility (RSA), and relative buried surface area (RBSA) prediction. 
 
@@ -14,20 +14,19 @@ This package provides an implementation of the membrane contact probability (MCP
 
 `conda activate ProtRAP-LM`
 
-`conda install pytorch==2.0.0 -c pytorch`
+`conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia`
 
 `pip install numpy==1.24.2`
 
 ### Command
 #### Prediction
-
 `python ProtRAP-LM.py --input_file ./example/test.fasta --output_dir ./output/ --device cpu`
 
 $input_file is the path of the input file.
 
 $output_dir is the directory of the output file.
 
-$device is the device used in the calculation.
+$device is the device used in the calculation, 'cpu' for CPU only and 'cuda:0' for GPU support.
 
 ## Server
 Please try to use our server of ProtRAP-LM predictor at:
@@ -42,3 +41,7 @@ Kang, K.; Wang, L.; Song, C*. ProtRAP: Predicting Lipid Accessibility Together w
 The implementation is based on the projects:
 
 [1] https://github.com/facebookresearch/esm#getting-started-with-this-repo-
+
+[2] https://github.com/ComputBiophys/MCP_Predictor
+
+[3] https://github.com/ComputBiophys/ProtRAP
