@@ -4,7 +4,7 @@ def run_ProtRAP_LM(fasta_file, result_dir, device):
 
     seq = fasta_load(fasta_file)
     result=ProtRAP_LM(device).predict(seq)
-    np.savetxt(result_dir + 'results.txt', np.column_stack((result[:,0:1], result[:,1:2], result[:,0:1]*result[:,1:2], (1-result[:,0:1])*result[:,1:2])), fmt='%.4f %.4f %.4f %.4f', header='MCP RASA RLA RSA')
+    np.savetxt(result_dir + 'results.txt', np.column_stack((result[:,0:1], result[:,1:2], result[:,0:1]*result[:,1:2], (1-result[:,0:1])*result[:,1:2], 1-result[:,1:2])), fmt='%.4f %.4f %.4f %.4f %.4f', header='MCP RASA RLA RSA RBSA')
 
 if __name__=='__main__':
     argparser=argparse.ArgumentParser()
