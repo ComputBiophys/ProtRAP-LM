@@ -9,7 +9,7 @@ def run_ProtRAP_LM(fasta_file, result_dir, device):
 if __name__=='__main__':
     argparser=argparse.ArgumentParser()
     argparser.add_argument('--input_file', help='input file')
-    argparser.add_argument('--output_path', default='./', help='output path')
+    argparser.add_argument('--output_dir', default='./', help='output directory')
     argparser.add_argument('--device', default='cpu', help='which device')
     args=argparser.parse_args()
     
