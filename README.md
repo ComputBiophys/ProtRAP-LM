@@ -21,7 +21,13 @@ This package provides an implementation of the membrane contact probability (MCP
 ### Command
 #### Prediction
 
-`python ProtRAP-LM.py --input_file ./example/test.fasta --output_path ./output/ --device cpu`
+`python ProtRAP-LM.py --input_file ./example/test.fasta --output_dir ./output/ --device cpu`
+
+$input_file is the path of the input file.
+
+$output_dir is the directory of the output file.
+
+$device is the device used in the calculation.
 
 ## Server
 Please try to use our server of ProtRAP-LM predictor at:
