@@ -13,4 +13,4 @@ if __name__=='__main__':
     argparser.add_argument('--device', default='cpu', help='which device')
     args=argparser.parse_args()
     
-    run_ProtRAP_LM(str(args.input_file), str(args.output_path), str(args.device) )
+    run_ProtRAP_LM(str(args.input_file), str(args.output_dir), str(args.device) )
