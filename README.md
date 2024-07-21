@@ -8,7 +8,7 @@ This package provides an implementation of the membrane contact probability (MCP
 ## Usage
 ### Requirements
 1. PyTorch
-2. Python packages: numpy
+2. Python package: numpy
 
 `conda create -n ProtRAP-LM python==3.8`
 
