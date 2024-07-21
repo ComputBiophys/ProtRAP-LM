@@ -5,6 +5,8 @@ We present a novel transformer-based model, ProtRAP-LM, utilizing language model
 
 This package provides an implementation of the membrane contact probability (MCP), relative accessible surface area (RASA), relative lipid accessibility (RLA), relative solvent accessibility (RSA), and relative buried surface area (RBSA) prediction. 
 
+![ppt](https://github.com/user-attachments/assets/484f2a08-cf14-4df1-ad36-93657e4f5520)
+
 ## Usage
 ### Requirements
 1. PyTorch
