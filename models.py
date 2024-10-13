@@ -2,6 +2,8 @@ import torch
 import numpy as np
 import argparse,csv,sys
 import os
+import torch.nn as nn
+import torch.nn.functional as nnF
 
 def fasta_load(fasta_dir):
     fp = open(fasta_dir, 'r')
@@ -11,7 +13,55 @@ def fasta_load(fasta_dir):
     for line in lines[1:]:
         sequence = sequence + line.split()[0]
     return sequence
-    
+def weight_MSE_loss(labels,logits,weights=1):
+    l=(labels-logits)**2
+    l=l*weights
+    return torch.sum(l)
+def focal_loss_softmax(labels,logits):
+    y_pred=logits
+    l=-labels*torch.log(y_pred+1e-8)*((1-y_pred)**2)
+    return torch.sum(l)
+
+class MultiScaleCNN(nn.Module):
+    def __init__(self,input_dim=1280,output_dim=256):#,size=[3,7,11],padding=[1,3,5]):
+        super().__init__()
+        self.cnn1=nn.Conv1d(input_dim,output_dim,3,padding=1)
+        self.cnn2=nn.Conv1d(input_dim,output_dim,5,padding=2)
+        self.cnn3=nn.Conv1d(input_dim,output_dim,7,padding=3)
+        self.cnn4=nn.Conv1d(input_dim,output_dim,9,padding=4)
+    def forward(self,x):
+        x=x.permute(0,2,1)
+        x1=self.cnn1(x)
+        x2=self.cnn2(x)
+        x3=self.cnn3(x)
+        x4=self.cnn4(x)
+        x=torch.cat((x1,x2,x3,x4), -2)
+        x=x.permute(0,2,1)
+        return x
+        
+class ProtRAP_LM_Model(nn.Module):
+    def __init__(self,input_dim=1280,n_hidden=256,num_layers=2,dropout=0.1):
+        super().__init__()
+        assert n_hidden%8==0
+
+        self.keep_prob=1-dropout
+        self.begin_linears=nn.Sequential(
+            nn.Linear(input_dim,n_hidden*2),nn.ReLU(),nn.Dropout(self.keep_prob),
+            nn.Linear(n_hidden*2,n_hidden),)
+        self.cnn=MultiScaleCNN(input_dim=n_hidden,output_dim=int(n_hidden/4))
+        encoder_layer=nn.TransformerEncoderLayer(d_model=n_hidden, nhead=4,activation='gelu',batch_first=True)
+        self.encoder= nn.TransformerEncoder(encoder_layer,num_layers=num_layers)
+        self.pred=nn.Sequential(
+            nn.Linear(n_hidden,int(n_hidden/2)),nn.ReLU(),nn.Dropout(self.keep_prob),nn.Linear(int(n_hidden/2),64),
+            nn.Linear(64,3),nn.Sigmoid())
+        return
+    def forward(self,x):
+        x=self.begin_linears(x)
+        x=self.cnn(x)+x
+        x=self.encoder(x)
+        prediction=self.pred(x)
+        return prediction
+
 class ProtRAP_LM():
 
     def __init__(self,device_name='cpu'):
