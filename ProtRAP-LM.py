@@ -1,5 +1,4 @@
 from models import *
-
 def run_ProtRAP_LM(fasta_file, result_dir, device):
 
     seq = fasta_load(fasta_file)

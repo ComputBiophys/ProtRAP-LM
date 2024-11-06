@@ -1,9 +1,29 @@
 import torch
 import numpy as np
 import argparse,csv,sys
-import os
+import os,requests
 import torch.nn as nn
 import torch.nn.functional as nnF
+
+
+model_path=lambda x:'models/model_'+str(x)+'.pts'
+github_url=lambda x:f"https://github.com/ComputBiophys/ProtRAP-LM/releases/download/Version1.0/model_{str(x)}.pts"
+
+def download_file(url, output_path):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # 检查请求是否成功
+        with open(output_path, 'wb') as f:
+            f.write(response.content)
+        print(f"Downloaded file from {url} to {output_path}")
+    except Exception as e:
+        print(f"Error downloading file: {e}, You may manually download this one")
+
+for i in range(10):
+    if not os.path.exists(model_path(i)):
+        print('Downloading model_'+str(i))
+        download_file(github_url(i), model_path(i))
+
 
 def fasta_load(fasta_dir):
     fp = open(fasta_dir, 'r')
