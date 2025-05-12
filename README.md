@@ -33,7 +33,9 @@ $device is the device used in the calculation, 'cpu' for CPU only and 'cuda:0' f
 ## Server
 Please try to use our server of ProtRAP-LM predictor at:
 
-http://www.songlab.cn
+[http://www.songlab.cn](http://www.songlab.cn)
+
+It is also avaliable at Colab. [<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab">](https://colab.research.google.com/github/ComputBiophys/ProtRAP-LM/blob/main/ProtRAP_LM.ipynb)
 
 ## References
 Wang, L.; Zhang, J.; Wang, D.; Song, C.* Membrane Contact Probability: An Essential and Predictive Character for the Structural and Functional Studies of Membrane Proteins. PLoS Comput. Biol. 2022, 18, e1009972.
