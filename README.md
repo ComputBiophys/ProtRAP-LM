@@ -30,6 +30,7 @@ $output_dir is the directory of the output file.
 
 $device is the device used in the calculation, 'cpu' for CPU only and 'cuda:0' for GPU support.
 
+The model weights will be downloaded into the 'models' folder automatically during the first run. Or you can manually download the weights from [Release](https://github.com/ComputBiophys/ProtRAP-LM/releases/tag/Version1.0).
 ## Server
 Please try to use our server of ProtRAP-LM predictor at:
 
